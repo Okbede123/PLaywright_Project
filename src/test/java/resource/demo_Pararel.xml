@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel = "tests" name = "TestCase" thread-count = "2">
+
+    <listeners>
+        <listener class-name = "core.extent_report.ExtentTestListener"/>
+    </listeners>
+
+    <parameter name = "url" value ="https://demo.guru99.com/v4/index.php" />
+
+    <test name = "Run On Chrome">
+        <parameter name = "browser" value = "chrome"/>
+        <parameter name = "thread" value = " run on chrome thread 1"/>
+        <classes>
+            <class name = "testcase.LoginTestCase_Parallel" />
+        </classes>
+    </test>
+
+    <test name = "Run On chromium">
+        <parameter name = "browser" value = "chromium"/>
+        <parameter name = "thread" value = "run on chromium thread 2"/>
+        <classes>
+            <class name = "testcase.LoginTestCase_Parallel" />
+        </classes>
+    </test>
+</suite>

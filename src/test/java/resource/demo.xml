@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel = "false" name = "TestCase">
+
+    <listeners>
+        <listener class-name = "core.extent_report.ExtentTestListener"/>
+    </listeners>
+
+    <parameter name = "url" value ="https://demo.guru99.com/v4/index.php" />
+
+    <test name = "Run On Chrome">
+        <parameter name = "browser" value = "chrome"/>
+        <classes>
+            <class name = "testcase.LoginTestCase" />
+        </classes>
+    </test>
+</suite>
