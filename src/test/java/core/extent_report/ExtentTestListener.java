@@ -11,6 +11,7 @@ import org.testng.ITestResult;
 
 import java.lang.reflect.Method;
 import java.nio.file.Paths;
+import java.util.Base64;
 
 import static core.extent_report.ExtentManager.getTest;
 
@@ -39,13 +40,10 @@ public class ExtentTestListener  implements ITestListener {
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         Object testClass = iTestResult.getInstance();
-//        WebDriver driver = ((BaseTest) testClass).getDriver();
         Page page = ((BaseTest) testClass).getPage();
-//        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) page).getScreenshotAs(OutputType.BASE64);
 
-        page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("target/example.png")).setFullPage(true)) ;
-        getTest().log(Status.FAIL, "Test Failed", getTest().addScreenCaptureFromPath(GlobalConstant.LINK_PROJECT + "example.png").getModel().getMedia().get(0));
-//        System.out.println(GlobalConstant.LINK_PROJECT + "example.png");
+         byte[] buffer =  page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("target/example.png")).setFullPage(true)) ;
+        getTest().log(Status.FAIL, "Test Failed", getTest().addScreenCaptureFromBase64String(Base64.getEncoder().encodeToString(buffer)).getModel().getMedia().get(0));
     }
 
     @Override
