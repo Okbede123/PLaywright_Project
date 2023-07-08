@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite parallel = "false" name = "TestCase">
+<suite parallel = "false" name = "TestCase" thread-count = "1">
 
     <listeners>
         <listener class-name = "core.extent_report.ExtentTestListener"/>

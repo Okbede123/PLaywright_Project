@@ -24,7 +24,7 @@ public class LoginTestCase extends BaseTest {
     @Parameters({"browser","url"})
     @BeforeClass
     public void beforeClass(String browser,String url){
-        page = openBrowser_OneTabs(false,browser,url);
+        page = openBrowser_OneTabs(false,browser,url,"");
 
     }
 
@@ -43,7 +43,7 @@ public class LoginTestCase extends BaseTest {
         ExtentManager.getTest().log(Status.INFO,"verify login thanh cong");
         String login_Ok = homePageObject.getTextLogin();
         System.out.println(login_Ok);
-        Assert.assertFalse(homePageObject.verifyElementLoginVisibility());
+        Assert.assertTrue(homePageObject.verifyElementLoginVisibility());
     }
 
     @AfterClass

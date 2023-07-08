@@ -3,11 +3,13 @@ package core.extent_report;
 import com.aventstack.extentreports.Status;
 
 import com.microsoft.playwright.Page;
+import core.GlobalConstant;
 import core.commons.BaseTest;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.lang.reflect.Method;
 import java.nio.file.Paths;
 
 import static core.extent_report.ExtentManager.getTest;
@@ -25,6 +27,8 @@ public class ExtentTestListener  implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
+        ExtentManager.startTest(iTestResult.getMethod().getMethodName()+ BaseTest.thread.get(),BaseTest.thread.get() + " luong");
+
     }
 
     @Override
@@ -39,8 +43,9 @@ public class ExtentTestListener  implements ITestListener {
         Page page = ((BaseTest) testClass).getPage();
 //        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) page).getScreenshotAs(OutputType.BASE64);
 
-        page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("target/example.png"))) ;
-        getTest().log(Status.FAIL, "Test Failed", getTest().addScreenCaptureFromPath("C:\\Users\\Admin\\Downloads\\ExcelDriven\\PLaywright_Project\\target\\example.png").getModel().getMedia().get(0));
+        page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("target/example.png")).setFullPage(true)) ;
+        getTest().log(Status.FAIL, "Test Failed", getTest().addScreenCaptureFromPath(GlobalConstant.LINK_PROJECT + "example.png").getModel().getMedia().get(0));
+//        System.out.println(GlobalConstant.LINK_PROJECT + "example.png");
     }
 
     @Override

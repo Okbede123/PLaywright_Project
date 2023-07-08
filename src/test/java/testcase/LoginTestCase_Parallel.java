@@ -18,29 +18,25 @@ import java.lang.reflect.Method;
 public class LoginTestCase_Parallel extends BaseTest {
 
     Page page;
-    String thread;
+
     HomePageObject homePageObject;
 
     @Parameters({"browser","url","thread"})
     @BeforeClass
-    public void beforeClass(String browser,String url,String thread){
-        this.thread = thread;
-        page = openBrowser_OneTabs(false,browser,url);
-
+    public void beforeClass(String browser, String url, String thread){
+        page = openBrowser_OneTabs(false,browser,url,thread);
     }
 
     @Test
-    public void Login(Method method){
-        ExtentManager.startTest(method.getName() + thread,"login");
-        ExtentManager.getTest().log(Status.INFO,"input username,password and login");
+    public void Login(){
+        ExtentManager.getTest().log(Status.INFO,"bat dau login");
         LoginPageObject LoginPageObject = PageGeneralManager.openLoginPage(page);
        homePageObject = LoginPageObject.doLoginUserNameAndPassWord("mngr513624","vumUgys");
 
     }
 
     @Test
-    public void verifyLogin(Method method){
-        ExtentManager.startTest(method.getName() + thread,"verifyLogin");
+    public void verifyLogin(){
         ExtentManager.getTest().log(Status.INFO,"verify login thanh cong");
         String login_Ok = homePageObject.getTextLogin();
         System.out.println(login_Ok);

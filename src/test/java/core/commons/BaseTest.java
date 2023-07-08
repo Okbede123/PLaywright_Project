@@ -15,8 +15,9 @@ public class BaseTest {
     BrowserContext browserContext;
     Page page;
     Properties properties;
+    public static ThreadLocal<String> thread = new ThreadLocal<>();
 
-    public Page openBrowser_OneTabs(boolean setHeadless,String browser,String url){
+    public Page openBrowser_OneTabs(boolean setHeadless,String browser,String url,String thread){
         playwright = Playwright.create();
         launchOptions = new BrowserType.LaunchOptions().setHeadless(setHeadless);
         switch (browser){
@@ -36,6 +37,10 @@ public class BaseTest {
                 this.browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(setHeadless));
                 break;
             }
+            case "msedge":{
+                this.browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("msedge").setHeadless(setHeadless));
+                break;
+            }
             default:{
                 System.out.println("vao default");
                 throw new RuntimeException();
@@ -46,6 +51,9 @@ public class BaseTest {
         browserContext = this.browser.newContext();
         page = browserContext.newPage();
         page.navigate(url);
+        if(!thread.isEmpty()){
+            this.thread.set(thread);
+        }
         return page;
     }
 
